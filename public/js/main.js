@@ -284,5 +284,10 @@ var TEMPLATE_SEARCH_RESULT_STRING = '\
   $('.hired-banner .close-banner').on('click', function (ev) {
     $('.hired-banner').toggleClass('maximised');
   });
-
+  $('.hired-form').on('submit', function () {
+    var email = $('.email-input').val();
+    var hiredUrl = 'https://hired.com/signup/' + email + '?utm_source=sponsor&utm_medium=cdnjs&utm_campaign=q3-16';
+    window.location.href = hiredUrl;
+    return false;
+  })
 })(jQuery);

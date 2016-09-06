@@ -76,15 +76,25 @@ body {
   width: 800px;
   margin: auto;
 }
+.inner-container {
+  padding: 0 20px;
+}
 .octicon {
   font: normal normal normal 20px/1 octicons !important;
 }
 
 .library-container {
   margin-top: 70px;
-  padding: 0 20px;
   a {
     color: @color-brand;
+  }
+
+}
+.library-page {
+  .library-column {
+    &:hover {
+      background: #fff6f2;
+    }
   }
 }
 .library-name {
@@ -250,6 +260,10 @@ body {
     font-size: 12px;
     color: #BABBC1;
     text-align: center;
+    a {
+      color: #BABBC1;
+      
+    }
   }
 
   .email-input {
