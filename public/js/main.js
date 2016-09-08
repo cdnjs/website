@@ -39,11 +39,11 @@ var TEMPLATE_SEARCH_RESULT_STRING = '\
   copyElButton.appendTo(copyEl);
   toggleButton.appendTo(copyEl);
 
-  // copyEl.append('<ul class="dropdown-menu copy-options">' +
-  //                   '<li><a data-copy-type="https:" class="copy-https-url copy-button" href="#">Copy Url</a></li>' +
-  //                   '<li class="js"><a data-copy-embed="script" data-copy-type="https:" class=" copy-https-script copy-button" href="#">Copy Script Tag</a></li>' +
-  //                   '<li class="css"><a data-copy-embed="link" data-copy-type="https:" class=" copy-https-link copy-button" href="#">Copy Link Tag</a></li>' +
-  //                '</ul>');
+  copyEl.append('<ul class="dropdown-menu copy-options">' +
+                    '<li><a data-copy-type="https:" class="copy-https-url copy-button" href="#">Copy Url</a></li>' +
+                    '<li class="js"><a data-copy-embed="script" data-copy-type="https:" class=" copy-https-script copy-button" href="#">Copy Script Tag</a></li>' +
+                    '<li class="css"><a data-copy-embed="link" data-copy-type="https:" class=" copy-https-link copy-button" href="#">Copy Link Tag</a></li>' +
+                 '</ul>');
 
   var copyContainer = $('<div/>');
   copyEl.attr('style', 'display: none;');
@@ -54,9 +54,11 @@ var TEMPLATE_SEARCH_RESULT_STRING = '\
     // Currently not showing the copy button for iOS, check clipboard.js support
     if(!(/iPhone|iPad/i.test(navigator.userAgent))) {
       $('.library-column').on( "mouseenter", function(ev) {
-        var cont = $(ev.currentTarget);
-        copyEl.show();
-        copyEl.appendTo(cont);
+        if(copyOptionsOpen === -1) {
+          var cont = $(ev.currentTarget);
+          copyEl.show();
+          copyEl.appendTo(cont);
+        }
       });
       if (clipboard) {
         clipboard.destroy();
@@ -117,7 +119,11 @@ var TEMPLATE_SEARCH_RESULT_STRING = '\
       ga('send', 'event', 'library', 'copied', button.parents('.library-column').attr('data-lib-name'), 4);
     });
   }
-
+  var copyOptionsOpen = -1;
+$('.copy-button-trigger').on('click', function () {
+  $('.copy-options').toggle();
+  copyOptionsOpen = copyOptionsOpen * -1;
+});
   setupMouseEvents();
 
   var $hits = $('.packages-table-container');

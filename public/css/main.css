@@ -380,6 +380,7 @@ body {
 }
 .copy-button-container .copy-button-trigger {
   line-height: 20px;
+  height: 40px;
   background: #ff5000;
   outline: 0;
   font-size: 16px !important;
@@ -387,6 +388,29 @@ body {
   padding: 10px 10px 10px 5px;
   border-top-right-radius: 9px;
   border-bottom-right-radius: 9px;
+}
+.copy-button-container .dropdown-menu {
+  width: 150px;
+  position: absolute;
+  display: none;
+  top: 43px;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  background: #ff5000;
+  border-radius: 6px;
+}
+.copy-button-container .dropdown-menu li {
+  width: 100%;
+}
+.copy-button-container .dropdown-menu li .copy-button {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+  background: none;
+  text-align: right;
+  text-decoration: none;
+  color: #fff;
 }
 .hired-banner {
   height: 60px;
@@ -585,4 +609,9 @@ body {
   font-size: 70px !important;
   color: #ccc;
   cursor: pointer;
+}
+@media screen and (max-height: 900px) {
+  .hired-second-section {
+    display: none;
+  }
 }

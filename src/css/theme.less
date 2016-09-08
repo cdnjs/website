@@ -177,6 +177,7 @@ body {
   }
   .copy-button-trigger {
       line-height: 20px;
+      height: 40px;
       background: @color-brand;
       outline: 0;
       font-size: 16px !important;
@@ -184,6 +185,29 @@ body {
       padding: 10px 10px 10px 5px;
       border-top-right-radius: 9px;
       border-bottom-right-radius: 9px;
+  }
+  .dropdown-menu {
+    width: 150px;
+    position: absolute;
+    display: none;
+    top: 43px;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background: #ff5000;
+    border-radius: 6px;
+    li {
+      width: 100%;
+      .copy-button {
+        width: 100%;
+        display: block;
+        border-radius: 0;
+        background: none;
+        text-align: right;
+        text-decoration: none;
+        color: #fff;
+      }
+    }
   }
 }
 
@@ -262,7 +286,7 @@ body {
     text-align: center;
     a {
       color: #BABBC1;
-      
+
     }
   }
 
@@ -403,3 +427,9 @@ body {
     cursor: pointer;
   }
 }
+
+@media screen and ( max-height: 900px ){
+     .hired-second-section {
+       display: none;
+     }
+ }
