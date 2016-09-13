@@ -60,6 +60,9 @@ var TEMPLATE_SEARCH_RESULT_STRING = '\
           copyEl.appendTo(cont);
         }
       });
+      $('.library-column').on( "mouseleave", function(ev) {
+          copyEl.hide();
+      });
       if (clipboard) {
         clipboard.destroy();
       }
@@ -83,12 +86,14 @@ var TEMPLATE_SEARCH_RESULT_STRING = '\
     });
 
     clipboard.on("success", function(e) {
-      var button = $(e.trigger);
+      var button = $(e.target);
       var btContainer = button.parents('.copy-button-group').tooltip({
         trigger: 'manual',
         placement: 'bottom',
         title: 'Copied!'
       });
+      toastr["success"]('Copied to clipboard!')
+      $('.copy-options').hide();
       btContainer.tooltip('show');
       setTimeout(function(){
         btContainer.tooltip('hide');
@@ -122,7 +127,6 @@ var TEMPLATE_SEARCH_RESULT_STRING = '\
   var copyOptionsOpen = -1;
 $('.copy-button-trigger').on('click', function () {
   $('.copy-options').toggle();
-  copyOptionsOpen = copyOptionsOpen * -1;
 });
   setupMouseEvents();
 
@@ -147,7 +151,7 @@ $('.copy-button-trigger').on('click', function () {
       var lib = {
         slug: hit.name,
         name: getSafeHighlightedValue(hit._highlightResult.name),
-        stars: hit.github.stargazers_count,
+        stars: hit.github && hit.github.stargazers_count || 0,
         url: 'https://cdnjs.cloudflare.com/ajax/libs/' + hit.originalName + '/' + hit.version + '/' + hit.filename
       };
       console.log(lib);

@@ -5,6 +5,11 @@ body {
   overflow-y: scroll;
   padding-bottom: 80px;
 }
+a,
+a:visited,
+a:active {
+  color: darken(@color-brand, 5%);
+}
 #search-box {
   width: 100%;
   padding: 20px;
@@ -160,8 +165,12 @@ body {
     width: 100%;
   }
 }
+.library-page .copy-button-container {
+  top: 7px;
+}
 .copy-button-container {
   position: absolute;
+  z-index: 1000000000;
   right: 20px;
   top: 40px;
   color: #fff;
@@ -174,6 +183,9 @@ body {
     border-top-left-radius: 9px;
     border-bottom-left-radius: 9px;
     outline: 0;
+    &:active {
+      background: lighten(@color-brand, 10%) !important;
+    }
   }
   .copy-button-trigger {
       line-height: 20px;

@@ -221,6 +221,11 @@ body {
   overflow-y: scroll;
   padding-bottom: 80px;
 }
+a,
+a:visited,
+a:active {
+  color: #e64800;
+}
 #search-box {
   width: 100%;
   padding: 20px;
@@ -362,8 +367,12 @@ body {
 .assets table {
   width: 100%;
 }
+.library-page .copy-button-container {
+  top: 7px;
+}
 .copy-button-container {
   position: absolute;
+  z-index: 1000000000;
   right: 20px;
   top: 40px;
   color: #fff;
@@ -377,6 +386,9 @@ body {
   border-top-left-radius: 9px;
   border-bottom-left-radius: 9px;
   outline: 0;
+}
+.copy-button-container .copy-button:active {
+  background: #ff7333 !important;
 }
 .copy-button-container .copy-button-trigger {
   line-height: 20px;
