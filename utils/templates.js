@@ -5,7 +5,7 @@ const condenseWhitespace = require('condense-whitespace');
 const removeNewline = require('newline-remove');
 
 // move to config
-const TITLE = 'cdnjs.com - The free and open source CDN for web related libraries to speed up your website!';
+const TITLE = 'cdnjs.com - The best FOSS CDN for web related libraries to speed up your websites!';
 
 const getTemplate = (templateURL, simple) => {
   const template = fs.readFileSync(path.join(__dirname, '..', templateURL), 'utf8');
@@ -33,8 +33,9 @@ const templates = {
 const generatePage = (options) => {
   const layout = options.layout || templates.layout;
   const title = options.title || TITLE;
-  const description = options.page && options.page.description || 'The free and open source CDN for all web libraries. Speed up your websites and save bandwidth!';
-
+  const library = options.page.data.library || null;
+  const description = (options.page && options.page.description) ? options.page.description + ' - ' + TITLE : TITLE;
+  const keywords = (library && library.keywords) || 'CDN,CDNJS,js,css,library,web,front-end,free,open-source,png,plugin,ng,jQuery,angular';
   const page = {
     data: options.page && options.page.data || {},
     template: options.page && options.page.template || 'No content',
@@ -43,8 +44,10 @@ const generatePage = (options) => {
 
   const fullContent = Mustache.render(layout, {
     title,
-    description,
+    description: library && (library.name + " - " + library.description),
     page: pageContent,
+    keywords,
+    url: options.reqUrl,
     wrapperClass: options.wrapperClass || '',
   });
 
