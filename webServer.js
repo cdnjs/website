@@ -46,10 +46,22 @@ app.use(express.static(__dirname + '/public', {
     maxAge: 7200 * 1000
 }));
 
+app.use(function(req, res, next) {
+  res.setHeader('X-Frame-Options', 'deny');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('Content-Security-Policy', "upgrade-insecure-requests; default-src 'unsafe-eval' 'self' *.carbonads.com *.getclicky.com fonts.gstatic.com www.google-analytics.com fonts.googleapis.com cdnjs.cloudflare.com 'unsafe-inline' https: data: ;");
+  }
+  next();
+});
+
 const setCache = function(res, hours) {
     res.setHeader("Cache-Control", "public, max-age=" + 60 * 60 * hours); // 4 days
     res.setHeader("Expires", new Date(Date.now() + 60 * 60 * hours * 1000).toUTCString());
 }
+
+
 
 const serverPush = function(res, uri) {
   var temp = uri.split('.'), ext = temp[temp.length-1], as = -1;
@@ -100,22 +112,14 @@ app.get('/', function(req, res) {
 
 function libraryGitRepoList(library) {
     urls = [];
-    temp = [];
 
-    if (library.repository != undefined) {
-        temp[0] = library.repository;
-    } else if (library.repositories != undefined) {
-        temp = library.repositories;
-    } else {
+    if (library.repository === undefined) {
         return null;
     }
 
-    for (repo in temp) {
-        if (temp[repo].type === 'git') {
-            urls.push({'url': GitUrlParse(temp[repo].url).toString("https")});
-        }
+    if (library.repository.type === 'git') {
+      urls.push({'url': GitUrlParse(library.repository.url).toString("https")});
     }
-    delete temp;
     library.urls = urls;
     return urls;
 }
@@ -134,6 +138,7 @@ function librarylicensesList(library) {
             var temp = library.licenses[license];
             library.licenses[license] = {};
             library.licenses[license].type = temp;
+            library.licenses[license].url = '#';
         }
         if (licenses.indexOf(library.licenses[license].type) !== -1) {
             library.licenses[license].url = 'https://spdx.org/licenses/' + library.licenses[license].type + '.html';
