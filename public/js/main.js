@@ -145,7 +145,7 @@ $('.copy-button-trigger').on('click', function () {
       return $('<div />').text(v).html().replace(/&lt;(\/?)em&gt;/g, '<$1em>');
     }
 
-    var html = '', match = false, same = false;
+    var html = '', match = false;
     for (var i = 0; i < content.hits.length; ++i) {
       var hit = content.hits[i];
       var lib = {
@@ -160,9 +160,6 @@ $('.copy-button-trigger').on('click', function () {
       html += row;
     //   if (hit._highlightResult.github && (hit._highlightResult.github.repo.matchedWords.length || hit._highlightResult.name.matchedWords.length)) {
     //     match = true;
-    //   }
-    //   if (hit.originalName == content.query) {
-    //     same = true;
     //   }
     //   var githubDetails = '';
     //   if (hit.github) {
@@ -196,7 +193,7 @@ $('.copy-button-trigger').on('click', function () {
     //   '</tr>';
     //   html += row;
     // }
-    // if (!content.hits.length || !match || !same) {
+    // if (!content.hits.length || !match) {
     //   var libraryName = content.query;
     //
     //   var tempText  = ( match ? 'Could not found the lib you\'re looking for?' : 'The library you\'re searching for cannot be found.');
