@@ -47,7 +47,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "eslint": "^2.0.0-rc.1",
+    "eslint": "^6.6.0",
     "eslint-config-google": "^0.5.0",
     "eslint-config-standard": "^5.3.1",
     "eslint-config-standard-jsx": "^1.2.0",
